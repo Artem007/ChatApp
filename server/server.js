@@ -8,7 +8,8 @@ var server=http.createServer(app);
 var publicPath=path.join(__dirname+'/../public');
 
 app.use(express.static(publicPath));
-//bla
-server.listen(3000,()=>{
+var port = process.env.PORT || 3000;
+
+server.listen(port,()=>{
   console.log('Server has started on port 3000');
 });
