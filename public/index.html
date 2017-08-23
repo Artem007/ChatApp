@@ -2,29 +2,33 @@
 <html>
 
 <head>
-  <title>ChatApp</title>
+  <title>Join | ChatApp</title>
   <meta charset="utf-8" />
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
 </head>
 
-<body>
-  <p>Welcome to app</p>
+<body class="centered-form">
 
-  <script src='/socket.io/socket.io.js'></script>
-  <script type="text/javascript">
-    var socket = io();
-
-    socket.on('connect', () => {
-      console.log('conected to server');
-
-      socket.on('disconnect', () => {
-        console.log('disconnected from server');
-      });
-
-    });
-  </script>
-
+  <div class="centered-form__form">
+    <form class="" action="/chat.html">
+      <div class="form-field">
+        <h3>Join Chat App</h3>
+      </div>
+      <div class="form-field">
+        <label>Name</label>
+        <input type="text" name="name" autofocus>
+      </div>
+      <div class="form-field">
+        <label>Room</label>
+        <input type="text" name="room" value="">
+      </div>
+      <div class="form-field">
+        <button>Join</button>
+      </div>
+    </form>
+  </div>
 
 </body>
 
