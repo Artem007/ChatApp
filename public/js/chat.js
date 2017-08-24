@@ -14,8 +14,32 @@ function scrollToButtom() {
   }
 }
 
+
 socket.on('connect', () => {
   console.log('conected to server');
+
+  var params = $.deparam(window.location.search);
+
+  socket.emit('join', params, (err) => {
+    if (err) {
+      window.location.href = "index.html";
+      alert('Name and Room are required!');
+      console.log(err);
+    } else {
+      console.log('no error');
+    }
+
+  });
+
+  socket.on('updateUsers',(users)=>{
+    $('#users').empty();
+    var usersList=$('#users');
+    users.forEach((user)=>{
+      var li=$('<li></li>');
+      li.text(user);
+      usersList.append(li);
+    });
+  });
 
   socket.on('disconnect', () => {
     console.log('disconnected from server');
@@ -31,7 +55,6 @@ socket.on('connect', () => {
     $('#messages').append(html);
     scrollToButtom();
   });
-
 });
 
 $("#message-form").on("submit", (event) => {
@@ -42,7 +65,6 @@ $("#message-form").on("submit", (event) => {
   var text = messageBox.val();
 
   socket.emit('createMsg', {
-    from: 'User',
     text: text
   }, () => {
     messageBox.val('');
@@ -61,8 +83,8 @@ socket.on('newLocationMsg', (msg) => {
   scrollToButtom();
 });
 
-
 var sendLocationBtn = $("#send-location");
+
 sendLocationBtn.on("click", () => {
 
   if (!navigator.geolocation) {
